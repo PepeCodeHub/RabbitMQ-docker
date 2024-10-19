@@ -1,0 +1,25 @@
+services:
+  rabbitmq:
+    build: .
+    image: rabbitmq-docker
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - rabbitmq-network
+    cap_drop:
+      - ALL 
+
+volumes:
+  rabbitmq-data:
+
+networks:
+  rabbitmq-network:
+    driver: bridge
